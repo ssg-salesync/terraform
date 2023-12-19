@@ -37,10 +37,10 @@ module "iam" {
 
 
 module "eks_cluster" {
-  source = "./modules/eks"
+  source            = "./modules/eks"
   eks_cluster_sg_id = module.sg.eks_cluster_sg_id
   eks_subnet_a_id   = module.vpc.public_subnet_ids[0]
   eks_subnet_c_id   = module.vpc.public_subnet_ids[1]
-  cluster_role_arn = module.iam.eks_cluster_role_arn
-  nodes_role_arn = module.iam.eks_node_role_arn
+  cluster_role_arn  = module.iam.eks_cluster_role_arn
+  nodes_role_arn    = module.iam.eks_node_role_arn
 }
