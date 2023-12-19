@@ -7,7 +7,7 @@ variable "db_password" {
 
 variable "db_name" {
   description = "The name of the database"
-  default = "salesync"
+  default     = "salesync"
   type        = string
 }
 

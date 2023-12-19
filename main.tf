@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
-    bucket = "salesync-terraform-backend"
-    key = "terraform/backend"
-    region = "ap-northeast-2"
+    bucket         = "salesync-terraform-backend"
+    key            = "terraform/backend"
+    region         = "ap-northeast-2"
     dynamodb_table = "salesync-terraform-state-lock"
-    encrypt = true
+    encrypt        = true
   }
 }
 
@@ -24,8 +24,23 @@ module "sg" {
 
 
 module "rds" {
-  source = "./modules/rds"
+  source      = "./modules/rds"
   db_password = var.db_password
-  sg_id = module.sg.rds_sg_id
-  subnet_ids = [module.vpc.private_subnet_ids[0], module.vpc.private_subnet_ids[1]]
+  sg_id       = module.sg.rds_sg_id
+  subnet_ids  = [module.vpc.private_subnet_ids[0], module.vpc.private_subnet_ids[1]]
+}
+
+
+module "iam" {
+  source = "./modules/iam"
+}
+
+
+module "eks_cluster" {
+  source = "./modules/eks"
+  eks_cluster_sg_id = module.sg.eks_cluster_sg_id
+  eks_subnet_a_id   = module.vpc.public_subnet_ids[0]
+  eks_subnet_c_id   = module.vpc.public_subnet_ids[1]
+  cluster_role_arn = module.iam.eks_cluster_role_arn
+  nodes_role_arn = module.iam.eks_node_role_arn
 }

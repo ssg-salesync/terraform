@@ -20,6 +20,6 @@ variable "vpc_cidr" {
 
 variable "public_ip" {
   description = "Whether to create a public IP"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
