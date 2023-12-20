@@ -11,17 +11,24 @@ resource "aws_security_group" "rds" {
   }
 
   ingress {
-    from_port                = 5432
-    to_port                  = 5432
-    protocol                 = "tcp"
-    source_security_group_id = var.eks_cluster_sg_id
+    from_port = 5432
+    to_port   = 5432
+    protocol  = "tcp"
+
   }
 
   ingress {
-    from_port                = 5432
-    to_port                  = 5432
-    protocol                 = "tcp"
-    source_security_group_id = var.bastion_sg_id
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.eks_cluster.id]
+  }
+
+  ingress {
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.bastion.id]
   }
 
   egress {

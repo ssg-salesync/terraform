@@ -15,14 +15,13 @@ resource "aws_eks_cluster" "eks_cluster" {
 
 
 resource "aws_eks_node_group" "eks_nodes" {
-  cluster_name       = aws_eks_cluster.eks_cluster.name
-  node_group_name    = "eks-nodes"
-  node_role_arn      = var.nodes_role_arn
-  subnet_ids         = [var.eks_subnet_a_id, var.eks_subnet_c_id]
-  instance_types     = ["t3a.medium"]
-  disk_size          = 20
-  ami_type           = "AL2_x86_64"
-  security_group_ids = [var.eks_cluster_sg_id]
+  cluster_name    = aws_eks_cluster.eks_cluster.name
+  node_group_name = "eks-nodes"
+  node_role_arn   = var.nodes_role_arn
+  subnet_ids      = [var.eks_subnet_a_id, var.eks_subnet_c_id]
+  instance_types  = ["t3a.medium"]
+  disk_size       = 20
+  ami_type        = "AL2_x86_64"
 
   scaling_config {
     desired_size = 2
