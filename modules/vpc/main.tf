@@ -41,6 +41,18 @@ resource "aws_route_table_association" "public_subnet_c_association" {
 }
 
 
+resource "aws_route_table_association" "private_subnet_a_association" {
+  subnet_id      = module.subnet_private_a.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+
+resource "aws_route_table_association" "private_subnet_c_association" {
+  subnet_id      = module.subnet_private_c.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+
 module "subnet_public_a" {
   source    = "./subnet"
   az        = "ap-northeast-2a"
@@ -57,7 +69,7 @@ module "subnet_private_a" {
   index     = 2
   vpc_id    = aws_vpc.main.id
   vpc_cidr  = var.vpc_cidr
-  public_ip = false
+  public_ip = true
 }
 
 
@@ -77,7 +89,7 @@ module "subnet_private_c" {
   index     = 4
   vpc_id    = aws_vpc.main.id
   vpc_cidr  = var.vpc_cidr
-  public_ip = false
+  public_ip = true
 }
 
 

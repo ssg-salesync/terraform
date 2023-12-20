@@ -15,6 +15,7 @@ resource "aws_db_instance" "salesync_rds" {
   engine                 = "postgres"
   engine_version         = "15.4"
   instance_class         = "db.t3.micro"
+  publicly_accessible    = true
   skip_final_snapshot    = true
   identifier             = "salesync-rds"
   db_name                = var.db_name

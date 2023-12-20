@@ -29,7 +29,7 @@ module "rds" {
   source      = "./modules/rds"
   db_password = var.db_password
   sg_id       = module.sg.rds_sg_id
-  subnet_ids  = [module.vpc.public_subnet_ids[0], module.vpc.public_subnet_ids[1]]
+  subnet_ids  = [module.vpc.private_subnet_ids[0], module.vpc.private_subnet_ids[1]]
 }
 
 
