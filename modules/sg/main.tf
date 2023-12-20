@@ -3,33 +3,33 @@ resource "aws_security_group" "rds" {
   name        = "rds-security-group"
   description = "rds security group"
 
-#  ingress {
-#    from_port   = 22
-#    to_port     = 22
-#    protocol    = "tcp"
-#    cidr_blocks = ["0.0.0.0/0"]
-#  }
-#
-#  ingress {
-#    from_port = 5432
-#    to_port   = 5432
-#    protocol  = "tcp"
-#
-#  }
+  #  ingress {
+  #    from_port   = 22
+  #    to_port     = 22
+  #    protocol    = "tcp"
+  #    cidr_blocks = ["0.0.0.0/0"]
+  #  }
+  #
+  #  ingress {
+  #    from_port = 5432
+  #    to_port   = 5432
+  #    protocol  = "tcp"
+  #
+  #  }
 
-#  ingress {
-#    from_port       = 5432
-#    to_port         = 5432
-#    protocol        = "tcp"
-#    security_groups = [aws_security_group.eks_cluster.id]
-#  }
-#
-#  ingress {
-#    from_port       = 5432
-#    to_port         = 5432
-#    protocol        = "tcp"
-#    security_groups = [aws_security_group.bastion.id]
-#  }
+  #  ingress {
+  #    from_port       = 5432
+  #    to_port         = 5432
+  #    protocol        = "tcp"
+  #    security_groups = [aws_security_group.eks_cluster.id]
+  #  }
+  #
+  #  ingress {
+  #    from_port       = 5432
+  #    to_port         = 5432
+  #    protocol        = "tcp"
+  #    security_groups = [aws_security_group.bastion.id]
+  #  }
 
   ingress {
     from_port   = 0
