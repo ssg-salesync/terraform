@@ -7,7 +7,7 @@ resource "aws_iam_role" "eks_cluster_role" {
       Action = "sts:AssumeRole",
       Effect = "Allow",
       Principal = {
-        Service = "eks.amazonaws.com"
+        Service = ["eks.amazonaws.com", "ec2.amazonaws.com"]
       }
     }]
   })
@@ -23,7 +23,7 @@ resource "aws_iam_role" "eks_node_role" {
       Action = "sts:AssumeRole",
       Effect = "Allow",
       Principal = {
-        Service = "ec2.amazonaws.com"
+        Service = ["eks.amazonaws.com", "ec2.amazonaws.com"]
       }
     }]
   })
@@ -32,6 +32,12 @@ resource "aws_iam_role" "eks_node_role" {
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.eks_cluster_role.name
+}
+
+
+resource "aws_iam_role_policy_attachment" "eks_vpc_resource_controller" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.eks_cluster_role.name
 }
 

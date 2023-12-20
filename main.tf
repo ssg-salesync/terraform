@@ -44,3 +44,11 @@ module "eks_cluster" {
   cluster_role_arn  = module.iam.eks_cluster_role_arn
   nodes_role_arn    = module.iam.eks_node_role_arn
 }
+
+
+module "bastion" {
+  source = "./modules/ec2"
+  bastion_sg_id = module.sg.bastion_sg_id
+  subnet_id     = module.vpc.public_subnet_ids[0]
+  private_key_path = var.private_key_path
+}

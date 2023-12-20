@@ -1,7 +1,7 @@
 resource "aws_eks_cluster" "eks_cluster" {
   name     = "salesync-eks-cluster"
   role_arn = var.cluster_role_arn
-  version  = "1.18"
+  version  = "1.28"
 
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 

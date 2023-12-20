@@ -13,3 +13,8 @@ variable "vpc_cidr" {
 variable "db_password" {
   description = "DB Password"
 }
+
+
+variable "private_key_path" {
+  description = "Private Key Path"
+}
