@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket         = "salesync-terraform-backend"
-    key            = "terraform/backend"
+    key            = "terraform/terraform.tfstate"
     region         = "ap-northeast-2"
     dynamodb_table = "salesync-terraform-state-lock"
     encrypt        = true
