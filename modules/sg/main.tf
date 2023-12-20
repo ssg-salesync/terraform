@@ -11,10 +11,17 @@ resource "aws_security_group" "rds" {
   }
 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port                = 5432
+    to_port                  = 5432
+    protocol                 = "tcp"
+    source_security_group_id = var.eks_cluster_sg_id
+  }
+
+  ingress {
+    from_port                = 5432
+    to_port                  = 5432
+    protocol                 = "tcp"
+    source_security_group_id = var.bastion_sg_id
   }
 
   egress {
@@ -76,7 +83,7 @@ resource "aws_security_group" "asg" {
 
 
 resource "aws_security_group" "bastion" {
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
   name        = "bastion"
   description = "Security group for Bastion host"
 

@@ -18,8 +18,10 @@ module "vpc" {
 
 
 module "sg" {
-  source = "./modules/sg"
-  vpc_id = module.vpc.vpc_id
+  source            = "./modules/sg"
+  vpc_id            = module.vpc.vpc_id
+  eks_cluster_sg_id = module.sg.eks_cluster_sg_id
+  bastion_sg_id     = module.sg.bastion_sg_id
 }
 
 
@@ -47,8 +49,8 @@ module "eks_cluster" {
 
 
 module "bastion" {
-  source = "./modules/ec2"
-  bastion_sg_id = module.sg.bastion_sg_id
-  subnet_id     = module.vpc.public_subnet_ids[0]
+  source           = "./modules/ec2"
+  bastion_sg_id    = module.sg.bastion_sg_id
+  subnet_id        = module.vpc.public_subnet_ids[0]
   private_key_path = var.private_key_path
 }
