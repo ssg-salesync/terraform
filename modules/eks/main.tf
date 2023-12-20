@@ -22,10 +22,10 @@ resource "aws_eks_node_group" "eks_nodes" {
   instance_types  = ["t3a.medium"]
   disk_size       = 20
   ami_type        = "AL2_x86_64"
-2
+
   scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 1
+    desired_size = 0
+    max_size     = 1
+    min_size     = 0
   }
 }
