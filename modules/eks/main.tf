@@ -24,8 +24,8 @@ resource "aws_eks_node_group" "eks_nodes" {
   ami_type        = "AL2_x86_64"
 
   scaling_config {
-    desired_size = 0
-    max_size     = 1
-    min_size     = 0
+    desired_size = var.desired_size
+    max_size     = var.max_size
+    min_size     = var.min_size
   }
 }
