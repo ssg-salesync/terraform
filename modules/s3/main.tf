@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3_static_web_server" {
-  bucket = "salesync-static-web-server"
+  bucket = "salesync.site"
 }
 
 resource "aws_s3_bucket_website_configuration" "s3_static_web_server" {
