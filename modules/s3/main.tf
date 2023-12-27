@@ -50,5 +50,5 @@ resource "aws_s3_bucket_acl" "s3_static_web_server" {
 
 
 output "website_url" {
-  value = "http://${aws_s3_bucket.s3_static_web_server.bucket}.s3-website.us-west-2.amazonaws.com"
+  value = "http://${aws_s3_bucket.s3_static_web_server.bucket}.s3-website.ap-northeast-2.amazonaws.com"
 }
