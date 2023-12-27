@@ -1,39 +1,9 @@
-# s3 bucket 생성
-resource "aws_s3_bucket" "salesync_site_ex" {
-      bucket = "salesync_site_ex"
+resource "aws_s3_bucket" "s3_static_web_server" {
+  bucket = "salesync-static-web-server"
 }
 
-# s3 퍼블릭 엑세스 차단 여부
-resource "aws_s3_bucket_public_access_block" "s3_public_access" {
-  bucket = aws_s3_bucket.salesync_site_ex.id
-
-  block_public_acls = false
-  block_public_policy = false
-
-}
-
-# s3 bucket 정책
-resource "aws_s3_bucket_policy" "s3_policy" {
-    bucket = aws_s3_bucket.salesync_site_ex.id
-    policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AddPerm",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::salesync_site_ex/*"
-        }
-    ]
-}
-POLICY
-}
-
-# s3 정적 웹호스팅
-resource "aws_s3_bucket_website_configuration" "s3_web_hosting" {
-  bucket = aws_s3_bucket.salesync_site_ex.id
+resource "aws_s3_bucket_website_configuration" "s3_static_web_server" {
+  bucket = aws_s3_bucket.s3_static_web_server.id
 
   index_document {
     suffix = "index.html"
@@ -42,4 +12,43 @@ resource "aws_s3_bucket_website_configuration" "s3_web_hosting" {
   error_document {
     key = "index.html"
   }
+}
+
+resource "aws_s3_bucket_versioning" "s3_static_web_server" {
+  bucket = aws_s3_bucket.s3_static_web_server.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+
+resource "aws_s3_bucket_ownership_controls" "s3_static_web_server" {
+  bucket = aws_s3_bucket.s3_static_web_server.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "s3_static_web_server" {
+  bucket = aws_s3_bucket.s3_static_web_server.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_acl" "s3_static_web_server" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.s3_static_web_server,
+    aws_s3_bucket_public_access_block.s3_static_web_server,
+  ]
+
+  bucket = aws_s3_bucket.s3_static_web_server.id
+  acl    = "public-read"
+}
+
+
+output "website_url" {
+  value = "http://${aws_s3_bucket.s3_static_web_server.bucket}.s3-website.us-west-2.amazonaws.com"
 }

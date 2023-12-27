@@ -51,6 +51,11 @@ module "eks_cluster" {
 }
 
 
+module "s3" {
+  source = "./modules/s3"
+}
+
+
 #module "bastion" {
 #  source           = "./modules/ec2"
 #  bastion_sg_id    = module.sg.bastion_sg_id
