@@ -56,9 +56,9 @@ module "s3" {
 }
 
 
-#module "bastion" {
-#  source           = "./modules/ec2"
-#  bastion_sg_id    = module.sg.bastion_sg_id
-#  subnet_id        = module.vpc.public_subnet_ids[0]
-#  private_key_path = var.private_key_path
-#}
+module "bastion" {
+  source           = "./modules/ec2"
+  bastion_sg_id    = module.sg.bastion_sg_id
+  subnet_id        = module.vpc.public_subnet_ids[0]
+  private_key_path = var.private_key_path
+}
