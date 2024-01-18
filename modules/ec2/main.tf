@@ -4,6 +4,9 @@ resource "aws_instance" "bastion_host" {
   subnet_id       = var.subnet_id
   key_name        = aws_key_pair.bastion_key.key_name
   security_groups = [var.bastion_sg_id]
+  tags = {
+    Name = "bastion"
+  }
 }
 
 
